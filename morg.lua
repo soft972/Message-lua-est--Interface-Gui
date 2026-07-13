@@ -204,7 +204,7 @@ end
 
 -- Scripts:
 
-local function SJRTH_fake_script()
+local function WJXQC_fake_script()
 	local script = Instance.new('LocalScript')
 	script.Name = [[LocalScript]]
 	script.Parent = _i[2]
@@ -373,7 +373,6 @@ local function SJRTH_fake_script()
 		fondChoisi = couleursDeFond[couleurFond]
 	end
 	
-	-- Changement en BackgroundColor3 car LHBR1 est une Frame classique (pas une ImageLabel)
 	LHBR1.BackgroundColor3 = fondChoisi
 	
 	-- ==========================================
@@ -450,7 +449,6 @@ local function SJRTH_fake_script()
 		end
 	end
 	
-	-- On applique le style de contour sur la Frame principale (LHBR1) au lieu des textes
 	AppliquerContour(LHBR1, styleContour)
 	
 	-- ==========================================
@@ -468,6 +466,15 @@ local function SJRTH_fake_script()
 	-- ==========================================
 	-- EXÉCUTION DU SYSTÈME
 	-- ==========================================
+	
+	-- 🔊 Création et lancement du son dès que l'UI apparaît
+	local notificationSound = Instance.new("Sound")
+	notificationSound.SoundId = "rbxassetid://9113743483"
+	notificationSound.Volume = 0.8 -- Ajuste le volume ici (entre 0 et 1)
+	notificationSound.Parent = LHBR1
+	notificationSound:Play()
+	
+	-- Lancement de l'animation d'entrée
 	animationEntree:Play()
 	
 	task.wait(1 + tempsAffichage)
@@ -477,7 +484,7 @@ local function SJRTH_fake_script()
 	
 	guiMessage:Destroy()
 end
-coroutine.wrap(SJRTH_fake_script)()
+coroutine.wrap(WJXQC_fake_script)()
 
 
 _i[1].Parent = PlayerGui
