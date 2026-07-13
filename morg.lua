@@ -14,7 +14,7 @@ local _i = {}
 
 _i[1] = Instance.new("ScreenGui")
 _i[1].DisplayOrder = 0
-_i[1].Enabled = true
+_i[1].Enabled = false
 _i[1].IgnoreGuiInset = false
 _i[1].ResetOnSpawn = true
 _i[1].Name = [[message]]
@@ -204,7 +204,7 @@ end
 
 -- Scripts:
 
-local function WJXQC_fake_script()
+local function SJEXY_fake_script()
 	local script = Instance.new('LocalScript')
 	script.Name = [[LocalScript]]
 	script.Parent = _i[2]
@@ -214,9 +214,12 @@ local function WJXQC_fake_script()
 	-- ==========================================
 	local TweenService = game:GetService("TweenService")
 	local RunService = game:GetService("RunService")
+	local LocalizationService = game:GetService("LocalizationService") -- Service de traduction
+	local Players = game:GetService("Players")
 	
 	-- L'objet Frame principale (qui contient le script)
 	local LHBR1 = script.Parent
+	local localPlayer = Players.LocalPlayer
 	
 	-- L'interface globale (message)
 	local guiMessage = LHBR1.Parent
@@ -262,8 +265,35 @@ local function WJXQC_fake_script()
 		end
 	end)
 	
-	labelTitre.Text = titreTexte
-	labelMessages.Text = messageTexte
+	-- ==========================================
+	-- FONCTION DE TRADUCTION AUTOMATIQUE
+	-- ==========================================
+	local function TraduireTexte(texteBrut)
+		if texteBrut == "" or tostring(texteBrut) == "0" then return texteBrut end
+	
+		-- On récupère le traducteur propre à la langue du joueur de manière sécurisée
+		local succes, translator = pcall(function()
+			return LocalizationService:GetTranslatorForPlayerAsync(localPlayer)
+		end)
+	
+		if succes and translator then
+			-- On demande à Roblox de traduire la phrase par rapport au contexte de l'UI
+			local traductionSucces, texteTraduit = pcall(function()
+				return translator:Translate(LHBR1, texteBrut)
+			end)
+	
+			if traductionSucces then
+				return texteTraduit
+			end
+		end
+	
+		-- Si la traduction échoue ou si le joueur parle la langue d'origine, on renvoie le texte de base
+		return texteBrut
+	end
+	
+	-- Application des textes traduits automatiquement
+	labelTitre.Text = TraduireTexte(titreTexte)
+	labelMessages.Text = TraduireTexte(messageTexte)
 	
 	-- ==========================================
 	-- GESTION DU TEXTE (POLICE, GRAS, ITALIQUE, COULEUR)
@@ -467,14 +497,12 @@ local function WJXQC_fake_script()
 	-- EXÉCUTION DU SYSTÈME
 	-- ==========================================
 	
-	-- 🔊 Création et lancement du son dès que l'UI apparaît
 	local notificationSound = Instance.new("Sound")
 	notificationSound.SoundId = "rbxassetid://9113743483"
-	notificationSound.Volume = 0.8 -- Ajuste le volume ici (entre 0 et 1)
+	notificationSound.Volume = 0.8
 	notificationSound.Parent = LHBR1
 	notificationSound:Play()
 	
-	-- Lancement de l'animation d'entrée
 	animationEntree:Play()
 	
 	task.wait(1 + tempsAffichage)
@@ -484,7 +512,7 @@ local function WJXQC_fake_script()
 	
 	guiMessage:Destroy()
 end
-coroutine.wrap(WJXQC_fake_script)()
+coroutine.wrap(SJEXY_fake_script)()
 
 
 _i[1].Parent = PlayerGui
