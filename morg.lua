@@ -14,7 +14,7 @@ local _i = {}
 
 _i[1] = Instance.new("ScreenGui")
 _i[1].DisplayOrder = 0
-_i[1].Enabled = false
+_i[1].Enabled = true
 _i[1].IgnoreGuiInset = false
 _i[1].ResetOnSpawn = true
 _i[1].Name = [[message]]
@@ -204,7 +204,7 @@ end
 
 -- Scripts:
 
-local function SJEXY_fake_script()
+local function BBMYJ_fake_script()
 	local script = Instance.new('LocalScript')
 	script.Name = [[LocalScript]]
 	script.Parent = _i[2]
@@ -512,7 +512,7 @@ local function SJEXY_fake_script()
 	
 	guiMessage:Destroy()
 end
-coroutine.wrap(SJEXY_fake_script)()
+coroutine.wrap(BBMYJ_fake_script)()
 
 
 _i[1].Parent = PlayerGui
